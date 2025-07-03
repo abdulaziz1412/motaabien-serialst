@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+
+const postsDir = path.resolve('src/content/blog');
+const files = fs.readdirSync(postsDir).filter(f => f.endsWith('.md'));
+const posts = files.map(file => {
+  const md = fs.readFileSync(path.join(postsDir, file), 'utf-8');
+  const { data } = matter(md);
+  return { slug: file.replace('.md',''), ...data };
+});
+---
+
+<Layout>
+  <h1>مدونتي بالعربي</h1>
+  <ul>
+    {posts.map(post => (
+      <li><a href={`/blog/${post.slug}`}>{post.title}</a> - {post.pubDate}</li>
+    ))}
+  </ul>
+</Layout>

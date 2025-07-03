@@ -1,0 +1,13 @@
+---
+import Layout from './Layout.astro';
+const { title, pubDate, heroImage, author } = Astro.props;
+---
+
+<Layout>
+  <article>
+    <h1>{title}</h1>
+    <p>نُشرت بتاريخ {pubDate} بواسطة {author}</p>
+    <img src={heroImage} alt={title} style="max-width:100%; border-radius:8px; margin:1rem 0;" />
+    <slot />
+  </article>
+</Layout>
